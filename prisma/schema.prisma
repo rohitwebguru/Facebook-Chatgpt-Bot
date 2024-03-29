@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model wp_ww_messages {
+  request_id     Int       @id @default(autoincrement()) @db.MediumInt
+  user_id        BigInt?
+  time_received  DateTime  @default(dbgenerated("('0000-00-00 00:00:00')")) @db.Timestamp(0)
+  time_responded DateTime? @db.Timestamp(0)
+  sender_id      String    @db.VarChar(255)
+  message        String    @db.Text
+  response       String?   @db.Text
+  context        String?   @db.VarChar(255)
+  platform       String?   @db.VarChar(255)
+  client_id      String?   @db.VarChar(255)
+  recipient_id   String?   @db.VarChar(255)
+  is_sent        Boolean?
+}
